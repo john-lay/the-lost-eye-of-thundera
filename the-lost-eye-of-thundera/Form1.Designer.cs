@@ -33,6 +33,7 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.labelTimer = new System.Windows.Forms.Label();
             this.labelSecondTimer = new System.Windows.Forms.Label();
+            this.labelInput = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,11 +74,21 @@
             this.labelSecondTimer.TabIndex = 3;
             this.labelSecondTimer.Text = "Timer:";
             // 
+            // labelInput
+            // 
+            this.labelInput.AutoSize = true;
+            this.labelInput.Location = new System.Drawing.Point(323, 66);
+            this.labelInput.Name = "labelInput";
+            this.labelInput.Size = new System.Drawing.Size(37, 13);
+            this.labelInput.TabIndex = 4;
+            this.labelInput.Text = "Input: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 446);
+            this.Controls.Add(this.labelInput);
             this.Controls.Add(this.labelSecondTimer);
             this.Controls.Add(this.labelTimer);
             this.Controls.Add(this.btnStart);
@@ -97,6 +108,7 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label labelTimer;
         private System.Windows.Forms.Label labelSecondTimer;
+        private System.Windows.Forms.Label labelInput;
     }
 }
 

@@ -9,6 +9,10 @@ namespace the_lost_eye_of_thundera.Sprites
     class Sprite
     {
         protected Bitmap spriteSheet;
+        public int animationStep;
+        public int positionX, positionY;
+        protected Bitmap[] animationStatus;
+
         /// <summary>
         ///     Takes a bitmap sprite/tile sheet and returns a 2 dimensional
         ///     array of tiles.
@@ -58,7 +62,11 @@ namespace the_lost_eye_of_thundera.Sprites
             }
             return tileArray;
         }
-
+        /// <summary>
+        ///     Takes a bitmap and returns a portion of it
+        /// </summary>
+        /// <param name="srcBitmap">Bitmap: original bitmap</param>
+        /// <param name="section">Rectangle: bounding area to return</param>
         static public Bitmap Copy(Bitmap srcBitmap, Rectangle section)
         {
             // Create the new bitmap and associated graphics object
@@ -74,5 +82,40 @@ namespace the_lost_eye_of_thundera.Sprites
             // Return the bitmap
             return bmp;
         }
+        /// <summary>
+        ///     Takes a bitmap sprite and render to a specifed canvas
+        /// </summary>
+        /// <param name="canvas">Graphics: canvas to draw on</param>
+        public void draw(Graphics canvas)
+        {            
+            //loop back around to first frame if on the final frame
+            if (animationStep == animationStatus.Length)
+            {
+                animationStep = 0;
+            }
+            Bitmap bitmap = animationStatus[animationStep];            
+            //draw to the specified canvas
+            canvas.DrawImage(bitmap, this.positionX, this.positionY);
+        }
+        public Bitmap[] flipSprite(Bitmap[] originalSprite)
+        {
+            var count = 0;
+            var arraySize = originalSprite.Length;
+            Bitmap[] newSprite = new Bitmap[arraySize];
+            foreach (Bitmap sprite in originalSprite)
+            {
+                Bitmap temp = new Bitmap(sprite);
+                temp.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                newSprite[count] = temp;
+                count++;
+            }
+            return newSprite;
+        }
+        protected void setAnimationStatus(Bitmap[] newStatus)
+        {
+            if(this.animationStatus != newStatus) {
+                this.animationStatus = newStatus;
+            }
+        }        
     }
 }

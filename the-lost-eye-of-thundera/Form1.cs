@@ -19,7 +19,6 @@ namespace the_lost_eye_of_thundera
         static bool pause = false;
         static int tenth = 0;
         static int second = 0;
-        static int animationStep = 0;
 
         public Form1()
         {
@@ -32,11 +31,19 @@ namespace the_lost_eye_of_thundera
             gameCanvas = pictureBox1.CreateGraphics();
             //initialise sprite
             liono = new Liono();
+            liono.positionX = 100;
+            liono.positionY = 10;
 
             //start the game
             if (gameStart == true) {                
                 GameTimer.Start();
             }
+            //handle game input
+            // Set KeyPreview object to true to allow the form to process  
+            // the key before the control with focus processes it.
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(userInput);
+            this.KeyUp += new KeyEventHandler(userNoInput);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -59,10 +66,7 @@ namespace the_lost_eye_of_thundera
         }
 
         void GameTimer_Tick(object sender, EventArgs e)
-        {
-            //Draw();
-            //gameCanvas.DrawImage(liono.walk[0], 10, 100);
-            
+        {            
             //timers
             labelTimer.Text = "Timer: " + tenth;
             tenth++;
@@ -70,19 +74,40 @@ namespace the_lost_eye_of_thundera
             if (tenth % 10 == 0) {
                 second++;
             }
-            //draw walk cycle - 8 frames
-            if (animationStep == 8)
-            {
-                animationStep = 0;
-            }
-            else
-            {
-                animationStep++;
-            }
+            
             //clear the canvas
             gameCanvas.Clear(SystemColors.Control);
             //draw updated frame
-            gameCanvas.DrawImage(liono.walk[animationStep], 10, 100);
+            liono.draw(gameCanvas);
+            liono.animationStep++;
+        }
+
+        void userInput(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                labelInput.Text = "Input: " + "right";
+                liono.WalkRight();
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                labelInput.Text = "Input: " + "left";
+                liono.WalkLeft();
+            }
+        }
+        void userNoInput(object sender, KeyEventArgs e)
+        {
+            //wait for sprite to be grounded,
+            //then return to neutral.
+        }
+        /// <summary>
+        ///     Override the arrow and tab keyboard events
+        ///     http://mike-caron.com/2010/07/dude-wheres-my-arrow-key/
+        /// </summary>
+        /// <param name="keyData">Keys: keys pressed</param>
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            return false;
         }
     }
 }
