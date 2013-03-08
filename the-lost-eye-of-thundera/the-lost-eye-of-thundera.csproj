@@ -77,12 +77,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Scenery\Background.cs" />
     <Compile Include="Sprites\Liono.cs" />
     <Compile Include="Sprites\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\background.bmp" />
+    <Content Include="Resources\background_mumm-ra.bmp" />
+    <Content Include="Resources\bottom_bar.bmp" />
+    <Content Include="Resources\drowning.bmp" />
     <Content Include="Resources\favicon.ico" />
+    <Content Include="Resources\imp.bmp" />
     <Content Include="Resources\liono_sprite.bmp" />
+    <Content Include="Resources\scenery.bmp" />
+    <Content Include="Resources\tile_sheet.bmp" />
+    <Content Include="Resources\vultureman.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using the_lost_eye_of_thundera.Sprites;
+using the_lost_eye_of_thundera.Scenery;
 
 namespace the_lost_eye_of_thundera
 {
@@ -15,6 +16,7 @@ namespace the_lost_eye_of_thundera
         Timer GameTimer;
         Graphics gameCanvas;
         Liono liono;
+        Background bg;
         static bool gameStart = false;
         static bool pause = false;
         static int tenth = 0;
@@ -32,7 +34,10 @@ namespace the_lost_eye_of_thundera
             //initialise sprite
             liono = new Liono();
             liono.positionX = 100;
-            liono.positionY = 10;
+            liono.positionY = 122;
+
+            //initialise bg
+            bg = new Background();
 
             //start the game
             if (gameStart == true) {                
@@ -77,6 +82,7 @@ namespace the_lost_eye_of_thundera
             
             //clear the canvas
             gameCanvas.Clear(SystemColors.Control);
+            bg.draw(gameCanvas);
             //draw updated frame
             liono.draw(gameCanvas);
             liono.animationStep++;
