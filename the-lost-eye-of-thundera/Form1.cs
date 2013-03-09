@@ -25,6 +25,10 @@ namespace the_lost_eye_of_thundera
         public Form1()
         {
             InitializeComponent();
+            this.SetStyle(
+              ControlStyles.AllPaintingInWmPaint |
+              ControlStyles.UserPaint |
+              ControlStyles.DoubleBuffer, true);
             //set up the game timer
             GameTimer = new Timer();
             GameTimer.Interval = 100;
@@ -81,7 +85,7 @@ namespace the_lost_eye_of_thundera
             }
             
             //clear the canvas
-            gameCanvas.Clear(SystemColors.Control);
+            //gameCanvas.Clear(SystemColors.Control);
             bg.draw(gameCanvas);
             //draw updated frame
             liono.draw(gameCanvas);
