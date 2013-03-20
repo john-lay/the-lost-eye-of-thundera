@@ -18,10 +18,10 @@ namespace the_lost_eye_of_thundera.Scenery
 
         public Background() {
             //initialise bitmap objects            
-            this.bg = new Bitmap("C:\\Documents and Settings\\Master John\\My Documents\\My game ideas\\the-lost-eye-of-thundera\\the-lost-eye-of-thundera\\Resources\\background.bmp");
-            this.bgMummRa = new Bitmap("C:\\Documents and Settings\\Master John\\My Documents\\My game ideas\\the-lost-eye-of-thundera\\the-lost-eye-of-thundera\\Resources\\background_mumm-ra.bmp");
-            this.scenery = new Bitmap("C:\\Documents and Settings\\Master John\\My Documents\\My game ideas\\the-lost-eye-of-thundera\\the-lost-eye-of-thundera\\Resources\\scenery.bmp");
-            this.bottomBar = new Bitmap("C:\\Documents and Settings\\Master John\\My Documents\\My game ideas\\the-lost-eye-of-thundera\\the-lost-eye-of-thundera\\Resources\\bottom_bar.bmp");
+            this.bg = new Bitmap(@"..\..\Resources\background.bmp");
+            this.bgMummRa = new Bitmap(@"..\..\Resources\background_mumm-ra.bmp");
+            this.scenery = new Bitmap(@"..\..\Resources\scenery.bmp");
+            this.bottomBar = new Bitmap(@"..\..\Resources\bottom_bar.bmp");
 
             //set position
             this.bgPosX = 0;

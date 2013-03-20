@@ -89,7 +89,7 @@ namespace the_lost_eye_of_thundera.Sprites
         public void draw(Graphics canvas)
         {            
             //loop back around to first frame if on the final frame
-            if (animationStep == animationStatus.Length)
+            if (animationStep >= animationStatus.Length)
             {
                 animationStep = 0;
             }

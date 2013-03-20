@@ -40,7 +40,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(288, 200);
             this.pictureBox1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(193, 228);
+            this.btnStart.Location = new System.Drawing.Point(193, 227);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(106, 25);
             this.btnStart.TabIndex = 1;
@@ -59,7 +59,7 @@
             // labelTimer
             // 
             this.labelTimer.AutoSize = true;
-            this.labelTimer.Location = new System.Drawing.Point(322, 15);
+            this.labelTimer.Location = new System.Drawing.Point(322, 14);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(36, 13);
             this.labelTimer.TabIndex = 2;
@@ -68,7 +68,7 @@
             // labelSecondTimer
             // 
             this.labelSecondTimer.AutoSize = true;
-            this.labelSecondTimer.Location = new System.Drawing.Point(322, 41);
+            this.labelSecondTimer.Location = new System.Drawing.Point(322, 40);
             this.labelSecondTimer.Name = "labelSecondTimer";
             this.labelSecondTimer.Size = new System.Drawing.Size(36, 13);
             this.labelSecondTimer.TabIndex = 3;
@@ -77,7 +77,7 @@
             // labelInput
             // 
             this.labelInput.AutoSize = true;
-            this.labelInput.Location = new System.Drawing.Point(323, 66);
+            this.labelInput.Location = new System.Drawing.Point(323, 65);
             this.labelInput.Name = "labelInput";
             this.labelInput.Size = new System.Drawing.Size(37, 13);
             this.labelInput.TabIndex = 4;

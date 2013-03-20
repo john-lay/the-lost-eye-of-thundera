@@ -37,8 +37,6 @@ namespace the_lost_eye_of_thundera
             gameCanvas = pictureBox1.CreateGraphics();
             //initialise sprite
             liono = new Liono();
-            liono.positionX = 100;
-            liono.positionY = 122;
 
             //initialise bg
             bg = new Background();
@@ -103,6 +101,22 @@ namespace the_lost_eye_of_thundera
             {
                 labelInput.Text = "Input: " + "left";
                 liono.WalkLeft();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                labelInput.Text = "Input: " + "up";
+                liono.Jump();
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                labelInput.Text = "Input: " + "down";
+                liono.Crouch();
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                labelInput.Text = "Input: " + "space";
+                e.SuppressKeyPress = true; //stop spacebar interaction with winform buttons
+                liono.Attack();
             }
         }
         void userNoInput(object sender, KeyEventArgs e)
