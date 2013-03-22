@@ -78,7 +78,7 @@ namespace the_lost_eye_of_thundera
             labelTimer.Text = "Timer: " + tenth;
             tenth++;
             labelSecondTimer.Text = "Timer: " + second;
-            if (tenth % 10 == 0) {
+            if (tenth % 50 == 0) {
                 second++;
             }
             
@@ -123,6 +123,7 @@ namespace the_lost_eye_of_thundera
         {
             //wait for sprite to be grounded,
             //then return to neutral.
+            liono.StandNeutral();
         }
         /// <summary>
         ///     Override the arrow and tab keyboard events

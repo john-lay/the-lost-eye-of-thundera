@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using System.Timers;
-using System.Threading;
+using System.Diagnostics;
 
 namespace the_lost_eye_of_thundera.Sprites
 {
@@ -22,10 +21,10 @@ namespace the_lost_eye_of_thundera.Sprites
             
             //source image
             this.spriteSheet = new Bitmap(@"..\..\Resources\liono_sprite.bmp");
-            Bitmap[,] lionoSprites = sliceUpTile(spriteSheet, 54, 54, 10, 2, Color.Magenta);
+            Bitmap[,] lionoSprites = sliceUpTile(spriteSheet, 54, 54, 11, 2, Color.Magenta);
 
             //initialise animation arrays
-            standRight = new Bitmap[] { lionoSprites[0, 0] };
+            standRight = new Bitmap[] { lionoSprites[10,0] };
             walkRight = new Bitmap[] { lionoSprites[0,0],
                 lionoSprites[1,0],
                 lionoSprites[2,0],
@@ -36,7 +35,7 @@ namespace the_lost_eye_of_thundera.Sprites
                 lionoSprites[7,0],
                 lionoSprites[8,0]
             };
-            jumpRight = new Bitmap[] { lionoSprites[9, 0] };
+            jumpRight = new Bitmap[] { lionoSprites[9,0] };
             jumpAttackRight = new Bitmap[] { lionoSprites[0,1],
                 lionoSprites[1,1],
                 lionoSprites[2,1]
@@ -45,7 +44,7 @@ namespace the_lost_eye_of_thundera.Sprites
                 lionoSprites[4,1],
                 lionoSprites[5,1]
             };
-            crouchRight = new Bitmap[] { lionoSprites[6, 1] };
+            crouchRight = new Bitmap[] { lionoSprites[6,1] };
             crouchAttackRight = new Bitmap[] { lionoSprites[7,1],
                 lionoSprites[8,1],
                 lionoSprites[9,1]
@@ -101,43 +100,33 @@ namespace the_lost_eye_of_thundera.Sprites
             else {
                 this.setAnimationStatus(jumpLeft);
             }
-            //set position
-            //while(this.isJumping){
-            //    this.updateJump();
-                
-            //}
-            //ground sprite
-            //this.positionY = 122;
-            //this.StandNeutral();
-            if (this.isJumping)
-            {
-                this.positionY += this.jumpSpeed;//Making it go up
-                this.jumpSpeed++;
-                if (this.positionY >= initialPosY)
-                //If it's farther than ground
-                {
-                    this.positionY = initialPosY;//Then set it on
-                    this.isJumping = false;
-                }
-                Thread.Sleep(200);
-            }
-            else
-            {
-                this.isJumping = true;
-                jumpSpeed = -14;//Give it upward thrust
-            }
-
-        }
-        private void updateJump() {
-            if (this.positionY != 50)
-            {
-                this.positionY--;
-                Thread.Sleep(200);                
-            }
-            else {
-                this.isJumping = true;
-            }
             
+            //initialise jump
+            this.initialPosY = this.positionY;
+            this.isJumping = true;
+            this.jumpSpeed = -7;
+           
+            //set position            
+            while (this.isJumping)
+            {
+                this.updateJump();
+                Debug.WriteLine("sprite posY = " + this.positionY);
+                Debug.WriteLine("jump speed = " + this.jumpSpeed);
+            }
+        }
+        /// <summary>
+        ///     Jump logic taken from:
+        ///     http://flatformer.blogspot.ie/2010/02/making-character-jump-in-xnac-basic.html
+        /// </summary>
+        private void updateJump()
+        {
+            this.positionY += this.jumpSpeed;
+            this.jumpSpeed += 1;
+            if (this.positionY >= this.initialPosY)
+            {
+                this.positionY = this.initialPosY;
+                this.isJumping = false;
+            }            
         }
         public void Crouch()
         {
