@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using the_lost_eye_of_thundera.Sprites;
 using the_lost_eye_of_thundera.Scenery;
+using System.Diagnostics;
 
 namespace the_lost_eye_of_thundera
 {
@@ -19,7 +20,7 @@ namespace the_lost_eye_of_thundera
         Background bg;
         static bool gameStart = false;
         static bool pause = false;
-        static int tenth = 0;
+        static int hundredth = 0;
         static int second = 0;
 
         public Form1()
@@ -31,7 +32,7 @@ namespace the_lost_eye_of_thundera
               ControlStyles.DoubleBuffer, true);
             //set up the game timer
             GameTimer = new Timer();
-            GameTimer.Interval = 100;
+            GameTimer.Interval = 10; //10 milliseconds 1/100 second
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             //create the graphics object to draw with            
             gameCanvas = pictureBox1.CreateGraphics();
@@ -74,20 +75,20 @@ namespace the_lost_eye_of_thundera
 
         void GameTimer_Tick(object sender, EventArgs e)
         {            
-            //timers
-            labelTimer.Text = "Timer: " + tenth;
-            tenth++;
-            labelSecondTimer.Text = "Timer: " + second;
-            if (tenth % 50 == 0) {
+            //timers            
+            hundredth++;            
+            if (hundredth % 100 == 0) {
                 second++;
             }
-            
-            //clear the canvas
-            //gameCanvas.Clear(SystemColors.Control);
-            bg.draw(gameCanvas);
-            //draw updated frame
-            liono.draw(gameCanvas);
-            liono.animationStep++;
+            labelTimer.Text = "1/100th Timer: " + hundredth;
+            labelSecondTimer.Text = "Seconds Timer: " + second;
+            //draw updated frame at 20fps
+            if (hundredth % 5 == 0)
+            {
+                bg.draw(gameCanvas);
+                liono.draw(gameCanvas);
+                liono.animationStep++;
+            }                    
         }
 
         void userInput(object sender, KeyEventArgs e)
@@ -96,11 +97,20 @@ namespace the_lost_eye_of_thundera
             {
                 labelInput.Text = "Input: " + "right";
                 liono.WalkRight();
+                //scroll bg
+                if (bg.sceneryPosX >= -(288 * 5)) //tiled bg width
+                    bg.sceneryPosX -= 2;
             }
             if (e.KeyCode == Keys.Left)
             {
-                labelInput.Text = "Input: " + "left";
-                liono.WalkLeft();
+                labelInput.Text = "Input: " + "left";                
+                //scroll bg and animate sprite only if the player hasn't reached
+                //the far left of the stage.
+                if (bg.sceneryPosX < 0)
+                {
+                    liono.WalkLeft();
+                    bg.sceneryPosX += 2;
+                }
             }
             if (e.KeyCode == Keys.Up)
             {

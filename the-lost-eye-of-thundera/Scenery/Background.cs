@@ -32,6 +32,9 @@ namespace the_lost_eye_of_thundera.Scenery
             this.sceneryPosY = 47;
             this.bottomBarPosX = 0;
             this.bottomBarPosY = 176 + groundOffset;
+
+            //tile scenery on the x-axis
+            this.scenery = tileScenery(this.scenery, 5);
         }
         public void draw(Graphics canvas)
         {
@@ -39,6 +42,26 @@ namespace the_lost_eye_of_thundera.Scenery
             canvas.DrawImage(bg, this.bgPosX, this.bgPosY);
             canvas.DrawImage(scenery, this.sceneryPosX, this.sceneryPosY);
             canvas.DrawImage(bottomBar, this.bottomBarPosX, this.bottomBarPosY);
+        }
+        public Bitmap tileScenery(Bitmap scenery, int tileX)
+        {
+            //create a canvas
+            Bitmap sceneryCanvas = new Bitmap(scenery.Width * tileX, scenery.Height);
+            //select an area of the scenery image to draw (all of it)
+            Rectangle sceneryRect = new Rectangle(0, 0, scenery.Width, scenery.Height);
+            //handle to a graphics objects
+            Graphics g = Graphics.FromImage(sceneryCanvas);
+
+            // Draw the scenery n times onto the canvas
+            for (int i = 0; i < (tileX * scenery.Width); i += scenery.Width)
+            {
+                g.DrawImage(scenery, i, 0, sceneryRect, GraphicsUnit.Pixel);
+            }
+            // Clean up
+            g.Dispose();
+
+            // Return the bitmap
+            return sceneryCanvas;        
         }
     }
 }

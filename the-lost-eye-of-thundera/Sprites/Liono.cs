@@ -82,13 +82,11 @@ namespace the_lost_eye_of_thundera.Sprites
         {
             this.setAnimationStatus(walkRight);
             directionFacingRight = true;
-            this.positionX += 2;
         }
         public void WalkLeft()
         {
             this.setAnimationStatus(walkLeft);
             directionFacingRight = false;
-            this.positionX -= 2;
         }
         public void Jump()
         {
@@ -108,7 +106,7 @@ namespace the_lost_eye_of_thundera.Sprites
            
             //set position            
             while (this.isJumping)
-            {
+            {                
                 this.updateJump();
                 Debug.WriteLine("sprite posY = " + this.positionY);
                 Debug.WriteLine("jump speed = " + this.jumpSpeed);
@@ -126,7 +124,7 @@ namespace the_lost_eye_of_thundera.Sprites
             {
                 this.positionY = this.initialPosY;
                 this.isJumping = false;
-            }            
+            }
         }
         public void Crouch()
         {
