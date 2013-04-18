@@ -14,8 +14,8 @@ namespace the_lost_eye_of_thundera.Sprites
         public Bitmap[] attackRight, jumpAttackRight, crouchAttackRight;
         public Bitmap[] attackLeft, jumpAttackLeft, crouchAttackLeft;
 
-        private bool directionFacingRight, isJumping;
-        private int initialPosX, initialPosY, jumpSpeed;
+        private bool _directionFacingRight, _isJumping;
+        private int _initialPosX, _initialPosY, _jumpSpeed;
 
         public Liono() {
             
@@ -59,17 +59,17 @@ namespace the_lost_eye_of_thundera.Sprites
             crouchAttackLeft   = flipSprite(crouchAttackRight);
 
             //initialise state            
-            directionFacingRight = true;
+            _directionFacingRight = true;
             this.StandNeutral();
-            this.positionX = this.initialPosX = 100;
-            this.positionY = this.initialPosY = 122;
-            this.isJumping = false;//Init jumping to false
-            this.jumpSpeed = 0;//Default no speed
+            this.positionX = this._initialPosX = 100;
+            this.positionY = this._initialPosY = 122;
+            this._isJumping = false;//Init jumping to false
+            this._jumpSpeed = 0;//Default no speed
         }
 
         public void StandNeutral() {
             //set animation
-            if (directionFacingRight)
+            if (_directionFacingRight)
             {
                 this.setAnimationStatus(standRight);
             }
@@ -81,17 +81,17 @@ namespace the_lost_eye_of_thundera.Sprites
         public void WalkRight()
         {
             this.setAnimationStatus(walkRight);
-            directionFacingRight = true;
+            _directionFacingRight = true;
         }
         public void WalkLeft()
         {
             this.setAnimationStatus(walkLeft);
-            directionFacingRight = false;
+            _directionFacingRight = false;
         }
         public void Jump()
         {
             //set animation
-            if (directionFacingRight)
+            if (_directionFacingRight)
             {
                 this.setAnimationStatus(jumpRight);
             }
@@ -100,16 +100,16 @@ namespace the_lost_eye_of_thundera.Sprites
             }
             
             //initialise jump
-            this.initialPosY = this.positionY;
-            this.isJumping = true;
-            this.jumpSpeed = -7;
+            this._initialPosY = this.positionY;
+            this._isJumping = true;
+            this._jumpSpeed = -7;
            
             //set position            
-            while (this.isJumping)
+            while (this._isJumping)
             {                
                 this.updateJump();
                 Debug.WriteLine("sprite posY = " + this.positionY);
-                Debug.WriteLine("jump speed = " + this.jumpSpeed);
+                Debug.WriteLine("jump speed = " + this._jumpSpeed);
             }
         }
         /// <summary>
@@ -118,18 +118,18 @@ namespace the_lost_eye_of_thundera.Sprites
         /// </summary>
         private void updateJump()
         {
-            this.positionY += this.jumpSpeed;
-            this.jumpSpeed += 1;
-            if (this.positionY >= this.initialPosY)
+            this.positionY += this._jumpSpeed;
+            this._jumpSpeed += 1;
+            if (this.positionY >= this._initialPosY)
             {
-                this.positionY = this.initialPosY;
-                this.isJumping = false;
+                this.positionY = this._initialPosY;
+                this._isJumping = false;
             }
         }
         public void Crouch()
         {
             //set animation
-            if (directionFacingRight)
+            if (_directionFacingRight)
             {
                 this.setAnimationStatus(crouchRight);
             }
@@ -141,13 +141,25 @@ namespace the_lost_eye_of_thundera.Sprites
         public void Attack()
         {
             //set animation
-            if (directionFacingRight)
+            if (_directionFacingRight)
             {
                 this.setAnimationStatus(attackRight);
             }
             else
             {
                 this.setAnimationStatus(attackLeft);
+            }
+        }
+        public void CrouchAttack()
+        {
+            //set animation
+            if (_directionFacingRight)
+            {
+                this.setAnimationStatus(crouchAttackRight);
+            }
+            else
+            {
+                this.setAnimationStatus(crouchAttackLeft);
             }
         }
     }

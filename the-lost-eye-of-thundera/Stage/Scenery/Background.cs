@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace the_lost_eye_of_thundera.Scenery
+namespace the_lost_eye_of_thundera.Stage.Scenery
 {
     class Background
     {
         public bool mummRa = false;
-        private Bitmap bg, scenery, bgMummRa, bottomBar;
+        private Bitmap _bg, _scenery, _bgMummRa, _bottomBar;
         public int bgPosX, bgPosY;
-        public int sceneryPosX, sceneryPosY;        
+        public int sceneryPosX, sceneryPosY;
         public int bgMummRaPosX, bgMummRaPosY;
         public int bottomBarPosX, bottomBarPosY;
         public int groundOffset = 8;
 
         public Background() {
             //initialise bitmap objects            
-            this.bg = new Bitmap(@"..\..\Resources\background.bmp");
-            this.bgMummRa = new Bitmap(@"..\..\Resources\background_mumm-ra.bmp");
-            this.scenery = new Bitmap(@"..\..\Resources\scenery.bmp");
-            this.bottomBar = new Bitmap(@"..\..\Resources\bottom_bar.bmp");
+            this._bg = new Bitmap(@"..\..\Resources\background.bmp");
+            this._bgMummRa = new Bitmap(@"..\..\Resources\background_mumm-ra.bmp");
+            this._scenery = new Bitmap(@"..\..\Resources\scenery.bmp");
+            this._bottomBar = new Bitmap(@"..\..\Resources\bottom_bar.bmp");
 
             //set position
             this.bgPosX = 0;
@@ -34,14 +34,14 @@ namespace the_lost_eye_of_thundera.Scenery
             this.bottomBarPosY = 176 + groundOffset;
 
             //tile scenery on the x-axis
-            this.scenery = tileScenery(this.scenery, 5);
+            this._scenery = tileScenery(this._scenery, 20);
         }
         public void draw(Graphics canvas)
         {
             //draw to the specified canvas
-            canvas.DrawImage(bg, this.bgPosX, this.bgPosY);
-            canvas.DrawImage(scenery, this.sceneryPosX, this.sceneryPosY);
-            canvas.DrawImage(bottomBar, this.bottomBarPosX, this.bottomBarPosY);
+            canvas.DrawImage(_bg, this.bgPosX, this.bgPosY);
+            canvas.DrawImage(_scenery, this.sceneryPosX, this.sceneryPosY);
+            canvas.DrawImage(_bottomBar, this.bottomBarPosX, this.bottomBarPosY);
         }
         public Bitmap tileScenery(Bitmap scenery, int tileX)
         {
@@ -61,7 +61,7 @@ namespace the_lost_eye_of_thundera.Scenery
             g.Dispose();
 
             // Return the bitmap
-            return sceneryCanvas;        
+            return sceneryCanvas;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using the_lost_eye_of_thundera.Sprites;
-using the_lost_eye_of_thundera.Scenery;
+using the_lost_eye_of_thundera.Stage.Scenery;
 using System.Diagnostics;
 
 namespace the_lost_eye_of_thundera
@@ -18,6 +18,7 @@ namespace the_lost_eye_of_thundera
         Graphics gameCanvas;
         Liono liono;
         Background bg;
+        Foreground stage;
         static bool gameStart = false;
         static bool pause = false;
         static int hundredth = 0;
@@ -41,6 +42,7 @@ namespace the_lost_eye_of_thundera
 
             //initialise bg
             bg = new Background();
+            stage = new Foreground();
 
             //start the game
             if (gameStart == true) {                
@@ -86,6 +88,7 @@ namespace the_lost_eye_of_thundera
             if (hundredth % 5 == 0)
             {
                 bg.draw(gameCanvas);
+                stage.draw(gameCanvas);
                 liono.draw(gameCanvas);
                 liono.animationStep++;
             }                    
@@ -96,10 +99,20 @@ namespace the_lost_eye_of_thundera
             if (e.KeyCode == Keys.Right)
             {
                 labelInput.Text = "Input: " + "right";
-                liono.WalkRight();
+                
                 //scroll bg
-                if (bg.sceneryPosX >= -(288 * 5)) //tiled bg width
-                    bg.sceneryPosX -= 2;
+                int singleSceneryTile = 288;
+                int singleStageTile = 32;
+                int numOfStageTiles = 78;
+                int totalWidthOfStage = singleStageTile * numOfStageTiles;
+                int sceneryTilesRequired = (int)Math.Floor((double) totalWidthOfStage / singleSceneryTile);
+
+                if (bg.sceneryPosX >= -(singleSceneryTile * sceneryTilesRequired)) //tiled bg width
+                {
+                    liono.WalkRight();
+                    bg.sceneryPosX -= 4;
+                    stage.sceneryPosX -= 4;
+                }
             }
             if (e.KeyCode == Keys.Left)
             {
@@ -109,7 +122,8 @@ namespace the_lost_eye_of_thundera
                 if (bg.sceneryPosX < 0)
                 {
                     liono.WalkLeft();
-                    bg.sceneryPosX += 2;
+                    bg.sceneryPosX += 4;
+                    stage.sceneryPosX += 4;
                 }
             }
             if (e.KeyCode == Keys.Up)
@@ -128,6 +142,12 @@ namespace the_lost_eye_of_thundera
                 e.SuppressKeyPress = true; //stop spacebar interaction with winform buttons
                 liono.Attack();
             }
+            if (e.KeyCode == Keys.Space && e.KeyCode == Keys.Down)
+            {
+                labelInput.Text = "Input: " + "space + down";
+                e.SuppressKeyPress = true; //stop spacebar interaction with winform buttons
+                liono.CrouchAttack();
+            }
         }
         void userNoInput(object sender, KeyEventArgs e)
         {
@@ -143,6 +163,11 @@ namespace the_lost_eye_of_thundera
         protected override bool ProcessDialogKey(Keys keyData)
         {
             return false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

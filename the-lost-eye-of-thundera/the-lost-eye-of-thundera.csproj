@@ -54,6 +54,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Stage\Scenery\Foreground.cs" />
+    <Compile Include="Stage\Utility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -77,9 +79,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Scenery\Background.cs" />
-    <Compile Include="Sprites\Liono.cs" />
-    <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Stage\Scenery\Background.cs" />
+    <Compile Include="Stage\Sprites\Liono.cs" />
+    <Compile Include="Stage\Sprites\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\background.bmp" />

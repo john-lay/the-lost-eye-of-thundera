@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace the_lost_eye_of_thundera.Sprites
+namespace the_lost_eye_of_thundera.Stage
 {
-    class Sprite
+    class Utility
     {
         protected Bitmap spriteSheet;
-        public int animationStep;
-        public int positionX, positionY;
-        protected Bitmap[] animationStatus;
 
         /// <summary>
         ///     Takes a bitmap sprite/tile sheet and returns a 2 dimensional
@@ -32,7 +29,7 @@ namespace the_lost_eye_of_thundera.Sprites
             //loop through areas in the tile sheet and slice it up.
             int tileCounterX = 0; int tileCounterY = 0;
             int tileOriginX = 0; int tileOriginY = 0;
-            
+
             //outerloop
             for (int y = 0; y < numTileY; y++)
             {
@@ -81,41 +78,6 @@ namespace the_lost_eye_of_thundera.Sprites
 
             // Return the bitmap
             return bmp;
-        }
-        /// <summary>
-        ///     Takes a bitmap sprite and render to a specifed canvas
-        /// </summary>
-        /// <param name="canvas">Graphics: canvas to draw on</param>
-        public void draw(Graphics canvas)
-        {            
-            //loop back around to first frame if on the final frame
-            if (animationStep >= animationStatus.Length)
-            {
-                animationStep = 0;
-            }
-            Bitmap bitmap = animationStatus[animationStep];            
-            //draw to the specified canvas
-            canvas.DrawImage(bitmap, this.positionX, this.positionY);
-        }
-        public Bitmap[] flipSprite(Bitmap[] originalSprite)
-        {
-            var count = 0;
-            var arraySize = originalSprite.Length;
-            Bitmap[] newSprite = new Bitmap[arraySize];
-            foreach (Bitmap sprite in originalSprite)
-            {
-                Bitmap temp = new Bitmap(sprite);
-                temp.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                newSprite[count] = temp;
-                count++;
-            }
-            return newSprite;
-        }
-        protected void setAnimationStatus(Bitmap[] newStatus)
-        {
-            if(this.animationStatus != newStatus) {
-                this.animationStatus = newStatus;
-            }
         }        
     }
 }
