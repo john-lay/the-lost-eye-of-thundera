@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using the_lost_eye_of_thundera.Sprites;
 using the_lost_eye_of_thundera.Stage.Scenery;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace the_lost_eye_of_thundera
 {
@@ -23,7 +24,7 @@ namespace the_lost_eye_of_thundera
         static bool pause = false;
         static int hundredth = 0;
         static int second = 0;
-
+        bool canvasIsScaled = false;
         public Form1()
         {
             InitializeComponent();
@@ -90,9 +91,9 @@ namespace the_lost_eye_of_thundera
                 bg.draw(gameCanvas);
                 stage.draw(gameCanvas);
                 liono.draw(gameCanvas);
-                liono.animationStep++;
+                liono.animationStep++;                
             }                    
-        }
+        }   
 
         void userInput(object sender, KeyEventArgs e)
         {
@@ -169,5 +170,35 @@ namespace the_lost_eye_of_thundera
         {
 
         }
+
+        private void MainMenu_Game_ResizeScale1x_Click(object sender, EventArgs e)
+        {
+            if (canvasIsScaled)
+            {
+                //resize picture box (frame)
+                pictureBox1.Size = new Size(pictureBox1.Width / 2, pictureBox1.Height / 2);
+                //Recreate the Graphics object from the resized pictureBox
+                gameCanvas.Dispose();
+                gameCanvas = pictureBox1.CreateGraphics();
+                //resize Graphics object (canvas)
+                gameCanvas.ResetTransform();
+                canvasIsScaled = false;
+            }
+        }
+
+        private void MainMenu_Game_ResizeScale2x_Click(object sender, EventArgs e)
+        {
+            if (!canvasIsScaled)
+            {
+                //resize picture box (frame)
+                pictureBox1.Size = new Size(pictureBox1.Width * 2, pictureBox1.Height * 2);
+                //Recreate the Graphics object from the resized pictureBox
+                gameCanvas.Dispose();
+                gameCanvas = pictureBox1.CreateGraphics();
+                //resize Graphics object (canvas)
+                gameCanvas.ScaleTransform(2.0F, 2.0F, MatrixOrder.Append);
+                canvasIsScaled = true;
+            }
+        }       
     }
 }
