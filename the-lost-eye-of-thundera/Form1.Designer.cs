@@ -36,10 +36,13 @@
             this.labelInput = new System.Windows.Forms.Label();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.MainMenu_Game = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu_Game_Resize = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu_Game_ResizeScale1x = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu_Game_ResizeScale2x = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenu_Game_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelPosX = new System.Windows.Forms.Label();
+            this.labelPosY = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -104,16 +107,11 @@
             // MainMenu_Game
             // 
             this.MainMenu_Game.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainMenu_Game_Resize});
+            this.MainMenu_Game_Resize,
+            this.MainMenu_Game_Exit});
             this.MainMenu_Game.Name = "MainMenu_Game";
             this.MainMenu_Game.Size = new System.Drawing.Size(46, 20);
             this.MainMenu_Game.Text = "Game";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.helpToolStripMenuItem.Text = "Help";
             // 
             // MainMenu_Game_Resize
             // 
@@ -121,7 +119,7 @@
             this.MainMenu_Game_ResizeScale1x,
             this.MainMenu_Game_ResizeScale2x});
             this.MainMenu_Game_Resize.Name = "MainMenu_Game_Resize";
-            this.MainMenu_Game_Resize.Size = new System.Drawing.Size(152, 22);
+            this.MainMenu_Game_Resize.Size = new System.Drawing.Size(116, 22);
             this.MainMenu_Game_Resize.Text = "Resize";
             // 
             // MainMenu_Game_ResizeScale1x
@@ -138,11 +136,44 @@
             this.MainMenu_Game_ResizeScale2x.Text = "Scale 2x (576x400)";
             this.MainMenu_Game_ResizeScale2x.Click += new System.EventHandler(this.MainMenu_Game_ResizeScale2x_Click);
             // 
+            // MainMenu_Game_Exit
+            // 
+            this.MainMenu_Game_Exit.Name = "MainMenu_Game_Exit";
+            this.MainMenu_Game_Exit.Size = new System.Drawing.Size(116, 22);
+            this.MainMenu_Game_Exit.Text = "Exit";
+            this.MainMenu_Game_Exit.Click += new System.EventHandler(this.MainMenu_Game_Exit_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // labelPosX
+            // 
+            this.labelPosX.AutoSize = true;
+            this.labelPosX.Location = new System.Drawing.Point(25, 512);
+            this.labelPosX.Name = "labelPosX";
+            this.labelPosX.Size = new System.Drawing.Size(41, 13);
+            this.labelPosX.TabIndex = 6;
+            this.labelPosX.Text = "Pos X: ";
+            // 
+            // labelPosY
+            // 
+            this.labelPosY.AutoSize = true;
+            this.labelPosY.Location = new System.Drawing.Point(25, 535);
+            this.labelPosY.Name = "labelPosY";
+            this.labelPosY.Size = new System.Drawing.Size(41, 13);
+            this.labelPosY.TabIndex = 7;
+            this.labelPosY.Text = "Pos Y: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 606);
+            this.Controls.Add(this.labelPosY);
+            this.Controls.Add(this.labelPosX);
             this.Controls.Add(this.labelInput);
             this.Controls.Add(this.labelSecondTimer);
             this.Controls.Add(this.labelTimer);
@@ -175,6 +206,9 @@
         private System.Windows.Forms.ToolStripMenuItem MainMenu_Game_ResizeScale1x;
         private System.Windows.Forms.ToolStripMenuItem MainMenu_Game_ResizeScale2x;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MainMenu_Game_Exit;
+        private System.Windows.Forms.Label labelPosX;
+        private System.Windows.Forms.Label labelPosY;
     }
 }
 

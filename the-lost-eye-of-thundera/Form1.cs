@@ -92,7 +92,9 @@ namespace the_lost_eye_of_thundera
                 stage.draw(gameCanvas);
                 liono.draw(gameCanvas);
                 liono.animationStep++;                
-            }                    
+            }
+            labelPosX.Text = "Pos X: " + bg.sceneryPosX + "px";
+            labelPosY.Text = "Pos Y: " + liono.positionY + "px";
         }   
 
         void userInput(object sender, KeyEventArgs e)
@@ -113,11 +115,39 @@ namespace the_lost_eye_of_thundera
                     liono.WalkRight();
                     bg.sceneryPosX -= 4;
                     stage.sceneryPosX -= 4;
+                    //set momentum flag
+                    liono.momentumRight = true;
+                }
+                //end game
+                if (bg.sceneryPosX <= -2270)
+                {
+                    //stop the game
+                    GameTimer.Stop();
+                    const string message = "Would you like to play again?";
+                    const string caption = "Game Over";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+                    // If the no button was pressed ... 
+                    if (result == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                    if (result == DialogResult.Yes)
+                    {
+                        //reset position
+                        liono.positionX = 100;
+                        liono.positionY = 122;
+                        bg.sceneryPosX = 0;
+                        stage.sceneryPosX = 0;
+                        //restart game
+                        GameTimer.Start();
+                    }
                 }
             }
             if (e.KeyCode == Keys.Left)
             {
-                labelInput.Text = "Input: " + "left";                
+                labelInput.Text = "Input: " + "left";
                 //scroll bg and animate sprite only if the player hasn't reached
                 //the far left of the stage.
                 if (bg.sceneryPosX < 0)
@@ -125,12 +155,15 @@ namespace the_lost_eye_of_thundera
                     liono.WalkLeft();
                     bg.sceneryPosX += 4;
                     stage.sceneryPosX += 4;
+                    //set momentum flag
+                    liono.momentumLeft = true;
                 }
             }
             if (e.KeyCode == Keys.Up)
             {
                 labelInput.Text = "Input: " + "up";
-                liono.Jump();
+                if(!liono.isJumping)
+                    liono.Jump();
             }
             if (e.KeyCode == Keys.Down)
             {
@@ -148,10 +181,32 @@ namespace the_lost_eye_of_thundera
                 labelInput.Text = "Input: " + "space + down";
                 e.SuppressKeyPress = true; //stop spacebar interaction with winform buttons
                 liono.CrouchAttack();
-            }
+            }            
         }
         void userNoInput(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Right)
+            {
+                //emulate inertia and gradually bring sprite to stop
+                for (int i=4; i>=0; i--)
+                {
+                    bg.sceneryPosX -= i;
+                    stage.sceneryPosX -= i;
+                }
+                //set momentum flag
+                liono.momentumRight = false;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                //emulate inertia and gradually bring sprite to stop
+                for (int i = 4; i >= 0; i--)
+                {
+                    bg.sceneryPosX += i;
+                    stage.sceneryPosX += i;
+                }
+                //set momentum flag
+                liono.momentumLeft = false;
+            }
             //wait for sprite to be grounded,
             //then return to neutral.
             liono.StandNeutral();
@@ -199,6 +254,11 @@ namespace the_lost_eye_of_thundera
                 gameCanvas.ScaleTransform(2.0F, 2.0F, MatrixOrder.Append);
                 canvasIsScaled = true;
             }
-        }       
+        }
+
+        private void MainMenu_Game_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }   
     }
 }
